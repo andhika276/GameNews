@@ -37,6 +37,15 @@
                                         {{news.publish_date}}
                                     </v-chip>
                                     <v-spacer></v-spacer>
+      <v-btn
+        flat
+        color="error"
+        @click="saveBookmark"
+        class="mt-0 ml-2"
+        small
+      >
+        <span>Add to Bookmark</span>
+      </v-btn>
                                     <v-btn
                                       color="deep-purple lighten-2"
                                       text
@@ -134,6 +143,8 @@
 
 <script>
 import http from "@/http";
+import BookmarkDataService from "../services/BookmarkDataService";
+
 
 export default {
   data(){
@@ -158,6 +169,20 @@ export default {
         this.errors(e)
       })
     },
+	saveBookmark(){
+      var data = {
+        id_user: Number(this.id_user),
+        id_berita: this.news.id_berita,
+      };
+      BookmarkDataService.add(data)
+        .then(response => {
+          console.log(response.data);
+          this.submitted = true;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+	},
     selectKategori: function (kategori){
       if(kategori=="All"){
         this.retrieve();

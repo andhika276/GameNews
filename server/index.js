@@ -195,6 +195,22 @@ app.get('/api/games/platform/:platform/', async (req,res)=>{
     res.send(await games.rows)
 })
 
+app.put('/api/game_save/:id', async (req,res)=>{
+    const id = req.params.id
+    var bufs = [];
+    req.on('data', function(d){ bufs.push(d); });
+    req.on('end', function(){
+    var data = Buffer.concat(bufs);
+    updateGameThumbnail(id, data)
+    });
+})
+
+app.get('/api/game_allthumbnail/', async (req,res)=>{
+    const game = await getGameThumbnail()
+    res.setHeader('content-type', 'image/jpg')
+    res.send(await game.rows[0].thumbnail_game)
+})
+
 
 //=====================NEWS BACKEND===============
 //Mendapatkan semua berita

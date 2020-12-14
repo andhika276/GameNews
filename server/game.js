@@ -31,12 +31,7 @@ module.exports = {
         client.export().query(`UPDATE public.game SET judul_game = $2, genre = $3, publisher = $4, platform = $5, release_date = $6, price = $7, description = $8, system_requirement = $9
                         WHERE id_game = $1`, [id, judul_game, genre, publisher, platform, release_date, price, description, system_requirement])
     },
-    
-    updateGameThumbnail : async function updateGameThumbnail(id, thumbnail_game){
-        console.log(id)
-        client.export().query(`UPDATE public.game SET thumbnail_game = $2
-                        WHERE id_game = $1`, [id, thumbnail_game])
-    },
+   
     
     getAllgamesASC : async function getAllgamesASC(){
         const result = await client.export().query('SELECT * FROM public.game ORDER BY release_date ASC')
@@ -66,6 +61,14 @@ module.exports = {
     getGamesByPlatform : async function getGamesByPlatform(platform){
         const result = await client.export().query('SELECT * FROM public.game WHERE platform LIKE $1', [platform])
         return result
-    }
+    },
+	updateGameThumbnail : async function updateGameThumbnail(id,thumbnail_game){
+	client.query('UPDATE public.game SET thumbnail_game=$2 WHERE id_game=$1',[id,thumbnail_game])
+	},
+
+	getGameThumbnail : async function getGameThumbnail(){
+    const result = await client.query('SELECT thumbnail_game FROM public.game WHERE id_game = $1')
+    return result
+	}
 }
 

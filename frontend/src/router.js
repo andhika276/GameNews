@@ -19,6 +19,7 @@ import UserEdit from './components/UserEdit';
 import AddUser from './components/AddUser';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import Bookmark from './components/Bookmark';
 
 Vue.use(VueRouter)
 
@@ -117,6 +118,11 @@ const routes = [
         path :"/api/games-update-thumbnail/:id_game",
         name : 'UploadGamePict',
         component :UploadGamePict,
+    },
+	{
+        path :"/api/bookmark",
+        name : 'Bookmark',
+        component :Bookmark,
     },
 ];
 

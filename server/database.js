@@ -1,6 +1,6 @@
 const {Client} = require ('pg')
 //const port = 8000
-const connection = "postgressql://postgres:fatharani@localhost:5432/GameNews"
+const connection = "postgressql://postgres:pasword@localhost:5432/GameNews"
 
 const client = new Client({
     connectionString: connection
