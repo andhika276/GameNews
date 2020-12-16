@@ -37,15 +37,17 @@
                                         {{news.publish_date}}
                                     </v-chip>
                                     <v-spacer></v-spacer>
+      <v-btn
+        flat
+        color="error"
+        @click="deleteBookmark"
+        class="mt-0 ml-2"
+        small
+      >
                                     <v-btn
                                       color="deep-purple lighten-2"
                                       text
                                     >
-                                      <bookmark v-if="!addBookmarkActivated">
-                                        <RouterLink :to="'/api/read_later/'+news.id_berita" class="routerlinkgame">
-                                          Delete Bookmark
-                                        </RouterLink>
-                                      </bookmark>
                                       <readmore v-if="!readMoreActivated">
                                         <RouterLink :to="'/news/'+news.id_berita" class="routerlinkgame">
                                           Read More
@@ -164,6 +166,17 @@ export default {
         this.errors(e)
       })
     },
+	deleteBookmark(){
+      http.delete('http://localhost:8000/api/read_later:id'+this.id_read_later)
+      .then(response =>{
+        this.articles = response.data;
+        console.log('data')
+        console.log(response.data)
+      })
+      .catch(e=>{
+        this.errors(e)
+
+	},
     selectKategori: function (kategori){
       if(kategori=="All"){
         this.retrieve();
